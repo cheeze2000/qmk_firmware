@@ -23,7 +23,7 @@
 #include <math.h>
 
 // WPM Stuff
-static uint8_t  current_wpm = 0;
+static uint16_t current_wpm = 0;
 static uint32_t wpm_timer   = 0;
 
 /* The WPM calculation works by specifying a certain number of 'periods' inside
@@ -54,14 +54,18 @@ static uint8_t periods                     = 1;
  */
 #    define LATENCY (100)
 static uint32_t smoothing_timer = 0;
-static uint8_t  prev_wpm        = 0;
-static uint8_t  next_wpm        = 0;
+static uint16_t  prev_wpm        = 0;
+static uint16_t  next_wpm        = 0;
 #endif
 
-void set_current_wpm(uint8_t new_wpm) {
+void set_current_wpm(uint16_t new_wpm) {
     current_wpm = new_wpm;
 }
-uint8_t get_current_wpm(void) {
+
+uint16_t get_current_wpm(void) {
+    if (current_wpm < 0) return 0;
+    if (current_wpm > 60000) return 0;
+
     return current_wpm;
 }
 
@@ -135,7 +139,6 @@ void decay_wpm(void) {
 
     if (wpm_now < 0) // set some reasonable WPM measurement limits
         wpm_now = 0;
-    if (wpm_now > 240) wpm_now = 240;
 
     if (elapsed > PERIOD_DURATION) {
         current_period                 = (current_period + 1) % MAX_PERIODS;
@@ -144,6 +147,7 @@ void decay_wpm(void) {
         elapsed                        = 0;
         wpm_timer                      = timer_read32();
     }
+
     if (presses < 2) // don't guess high WPM based on a single keypress.
         wpm_now = 0;
 

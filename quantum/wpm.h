@@ -38,8 +38,8 @@ bool wpm_keycode_user(uint16_t keycode);
 uint8_t wpm_regress_count(uint16_t keycode);
 #endif
 
-void    set_current_wpm(uint8_t);
-uint8_t get_current_wpm(void);
+void    set_current_wpm(uint16_t);
+uint16_t get_current_wpm(void);
 void    update_wpm(uint16_t);
 
 void decay_wpm(void);

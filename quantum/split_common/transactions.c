@@ -544,7 +544,7 @@ static void rgb_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 
 static bool wpm_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update = 0;
-    uint8_t         current_wpm = get_current_wpm();
+    uint16_t        current_wpm = get_current_wpm();
     return send_if_condition(PUT_WPM, &last_update, (current_wpm != split_shmem->current_wpm), &current_wpm, sizeof(current_wpm));
 }
 

@@ -194,7 +194,7 @@ typedef struct _split_shared_memory_t {
 #endif // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
 
 #if defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
-    uint8_t current_wpm;
+    uint16_t current_wpm;
 #endif // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 #if defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
